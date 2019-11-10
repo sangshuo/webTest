@@ -9,7 +9,11 @@ import com.pojo.Users;
 import com.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.UUID;
 
 @Service
@@ -42,8 +46,14 @@ if (users == null){
 
 
 }
+        //产生随机令牌
+        String token = UUID.randomUUID().toString();
 
-        return ServiceResponse.successRs(users);
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        HttpSession session = request.getSession();
+        session.setAttribute("token",token);
+
+        return ServiceResponse.successRs(users,token);
 
     }
 }

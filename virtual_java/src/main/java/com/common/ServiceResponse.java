@@ -14,10 +14,16 @@ public class ServiceResponse<T> implements Serializable {
     private Integer status;
     private  T data;
     private  String mas;
+    private  String token;
     //获取成功状态码和对象数据
     private ServiceResponse(T data){
         this.status = 200;
         this.data = data;
+    }
+    private ServiceResponse(T data,String token){
+        this.status = 200;
+        this.data = data;
+        this.token = token;
     }
     //获取成功状态码和对象数据
     private ServiceResponse(Integer status ,T data){
@@ -49,6 +55,9 @@ public class ServiceResponse<T> implements Serializable {
     //成功的时候只要返回成功获取的数据
     public static <T>ServiceResponse successRs(T data){
         return new ServiceResponse(data);
+    }
+    public static <T>ServiceResponse successRs(T data,String token){
+        return new ServiceResponse(data,token);
     }
 
     //成功的时候只要返回成功状态码数据状态消息和对象数据

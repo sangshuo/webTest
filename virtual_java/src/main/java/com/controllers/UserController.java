@@ -21,6 +21,7 @@ public class UserController {
 //    登录
     @PostMapping("login.do")
     public ServiceResponse login(String username,String password){
+        System.out.println("wojinlail");
         ServiceResponse login = userService.login(username, password);
 
         return login;
